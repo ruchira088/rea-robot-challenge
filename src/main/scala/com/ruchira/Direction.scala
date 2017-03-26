@@ -11,18 +11,16 @@ object Direction
 {
   val DIRECTION_LIST: List[Direction] = List(North, East, South, West)
 
-  def turnRight(direction: Direction): Direction =
-  {
+  def turnRight(direction: Direction): Direction = {
     val index = DIRECTION_LIST.indexOf(direction) + 1
 
-    if(DIRECTION_LIST.length > index)
-    {
+    if (DIRECTION_LIST.length > index) {
       DIRECTION_LIST(index)
     }
-    else
-    {
+    else {
       DIRECTION_LIST.head
     }
+  }
 
     def turnLeft(direction: Direction): Direction =
     {
@@ -48,6 +46,4 @@ object Direction
         case _ => throw new Error("Unable to convert string to Direction")
       }
     }
-  }
-
 }
