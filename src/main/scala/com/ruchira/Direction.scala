@@ -16,8 +16,7 @@ object Direction
 
     if (DIRECTION_LIST.length > index) {
       DIRECTION_LIST(index)
-    }
-    else {
+    } else {
       DIRECTION_LIST.head
     }
   }
@@ -29,13 +28,12 @@ object Direction
       if(index < 0)
       {
         DIRECTION_LIST.reverse.head
-      } else
-      {
+      } else {
         DIRECTION_LIST(index)
       }
     }
 
-    def convertFromString(string: String): Direction =
+    def parse(string: String): Direction =
     {
       string.toLowerCase match
       {

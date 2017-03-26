@@ -42,4 +42,11 @@ object Position
 
     inRange(x, width) && inRange(y, height)
   }
+
+  def parse(string: String): Position =
+  {
+    val List(x, y, direction) = string.trim.split(",").toList.map(_.trim)
+
+    Position(x.toInt, y.toInt, Direction.parse(direction))
+  }
 }

@@ -8,6 +8,26 @@ case class Left() extends Instruction
 case class Right() extends Instruction
 case class Report() extends Instruction
 
+case object Place
+{
+  val PREFIX = "Place"
+
+  def parse(string: String): Place =
+  {
+    val lowerCasedString = string.trim.toLowerCase
+
+    if(lowerCasedString.startsWith(PREFIX.toLowerCase))
+      {
+        val position = Position.parse(lowerCasedString.substring(PREFIX.length).trim)
+        Place(position)
+      }
+    else
+    {
+      throw new Error(s"Unable to convert string to Place: ${string}")
+    }
+  }
+}
+
 object Instruction
 {
   def perform(instruction: Instruction, position: Option[Position]): Option[Position] =
@@ -17,9 +37,7 @@ object Instruction
       if(Position.isValidPosition(nextPosition))
       {
         nextPosition
-      }
-      else
-      {
+      } else {
         currentPosition
       }
     }
@@ -39,15 +57,24 @@ object Instruction
         case Place(position) => if (Position.isValidPosition(position))
           {
             Some(position)
-          }
-          else
-          {
+          } else {
             None
           }
         case _ => None
       }
     }
-
   }
 
+  def parse(string: String): Instruction =
+  {
+    string.toLowerCase match
+    {
+      case "move" => Move()
+      case "left" => Left()
+      case "right" => Right()
+      case "report" => Report()
+      case instruction if instruction.startsWith(Place.PREFIX.toLowerCase) => Place.parse(instruction)
+      case _ => throw new Error(s"Unable to convert string to Instruction: ${string}")
+    }
+  }
 }
