@@ -1,6 +1,9 @@
 package com.ruchira
 
 case class Position(x: Int, y: Int, direction: Direction)
+{
+  override def toString: String = s"${x},${y},${direction.toString.toUpperCase}"
+}
 
 object Position
 {
