@@ -24,9 +24,9 @@ class InstructionTest extends FunSpec
       TestRunner.runTests(testValues, Instruction.parse)
     }
 
-    it("perform(Instruction, Option[Position]): Option[Position]")
+    it("perform(Instruction, Option[Position]): InstructionResult")
     {
-      val testValues: List[TestData[(Instruction, Option[Position]), Option[Position]]] = List(
+      val testValues: List[TestData[(Instruction, Option[Position]), InstructionResult]] = List(
         TestData((Move(), Some(Position(0, 0, North))), Some(Position(0, 1, North))),
         TestData((Move(), Some(Position(4, 4, East))), Some(Position(4, 4, East))),
         TestData((Move(), Some(Position(4, 4, South))), Some(Position(4, 3, South))),
@@ -42,7 +42,7 @@ class InstructionTest extends FunSpec
         TestData((Place(Position(5, 5, North)), Some(Position(0, 0, North))), Some(Position(0, 0, North)))
       )
 
-      TestRunner.runTests[(Instruction, Option[Position]), Option[Position]](testValues, value =>
+      TestRunner.runTests[(Instruction, Option[Position]), InstructionResult](testValues, value =>
       {
         val (instruction, positionOption) = value
         Instruction.perform(instruction, positionOption)

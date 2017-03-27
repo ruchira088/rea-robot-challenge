@@ -30,7 +30,7 @@ case object Place
 
 object Instruction
 {
-  def perform(instruction: Instruction, position: Option[Position], reportSink: String => Unit = value => {}): Option[Position] =
+  def perform(instruction: Instruction, position: Option[Position]): InstructionResult =
   {
     def moveToValidPosition(currentPosition: Position, nextPosition: Position): Position =
     {
@@ -50,10 +50,7 @@ object Instruction
         case Right() => Some(Position.turnRight(validPosition))
         case Left() => Some(Position.turnLeft(validPosition))
         case Place(position) => Some(moveToValidPosition(validPosition, position))
-        case Report() => {
-          reportSink(validPosition.toString)
-          Some(validPosition)
-        }
+        case Report() => InstructionResult(Some(validPosition), Some(validPosition.toString))
       }
 
       case None => instruction match
@@ -65,8 +62,7 @@ object Instruction
             None
           }
         case Report() => {
-          reportSink("Toy Robot NOT on table-top.")
-          None
+          InstructionResult(None, Some("Toy Robot NOT on table-top."))
         }
         case _ => None
       }
