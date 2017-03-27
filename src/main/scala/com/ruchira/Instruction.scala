@@ -1,5 +1,7 @@
 package com.ruchira
 
+import com.ruchira.errors.ParseError
+
 sealed trait Instruction
 
 case class Move() extends Instruction
@@ -26,7 +28,7 @@ case object Place
       }
     else
     {
-      throw new Error(s"Unable to convert string to Place: ${string}")
+      throw new ParseError(s"Unable to convert string to Place: ${string}")
     }
   }
 }
@@ -89,7 +91,7 @@ object Instruction
       case "right" => Right()
       case "report" => Report()
       case instruction if instruction.startsWith(Place.PREFIX.toLowerCase) => Place.parse(instruction)
-      case _ => throw new Error(s"Unable to convert string to Instruction: ${string}")
+      case _ => throw new ParseError(s"Unable to convert string to Instruction: ${string}")
     }
   }
 }

@@ -1,5 +1,7 @@
 package com.ruchira
 
+import com.ruchira.errors.ParseError
+
 sealed trait Direction
 
 case object North extends Direction
@@ -51,7 +53,7 @@ object Direction
         case "east" => East
         case "south" => South
         case "west" => West
-        case _ => throw new Error("Unable to convert string to Direction")
+        case _ => throw new ParseError(s"Unable to convert string to Direction: ${string}")
       }
     }
 }

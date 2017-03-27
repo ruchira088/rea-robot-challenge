@@ -1,15 +1,25 @@
 package com.ruchira
 
+import com.ruchira.errors.ParseError
+
 import scala.io.Source
 
 object Main
 {
   def main(args: Array[String]): Unit =
   {
-    val fileContents = Source.fromFile("input.txt").getLines().toList
-    val (_, report) = performInstructions(None, parseInputs(fileContents))
+    try
+    {
+      val fileContents = Source.fromFile("input.txt").getLines().toList
+      val (_, report) = performInstructions(None, parseInputs(fileContents))
 
-    report.foreach(println)
+      report.foreach(println)
+    }
+    catch
+    {
+      case error: ParseError => System.err.println(error)
+    }
+
   }
 
   def parseInputs(input: List[String]): List[Instruction] = input.map(Instruction.parse)
