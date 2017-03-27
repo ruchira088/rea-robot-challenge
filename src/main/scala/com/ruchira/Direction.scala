@@ -11,7 +11,11 @@ object Direction
 {
   val DIRECTION_LIST: List[Direction] = List(North, East, South, West)
 
-  def turnRight(direction: Direction): Direction = {
+  /**
+    * Turn right from the passed-in Direction
+    */
+  def turnRight(direction: Direction): Direction =
+  {
     val index = DIRECTION_LIST.indexOf(direction) + 1
 
     if (DIRECTION_LIST.length > index) {
@@ -21,6 +25,9 @@ object Direction
     }
   }
 
+  /**
+    * Turn left from the passed-in Direction
+    */
     def turnLeft(direction: Direction): Direction =
     {
       val index = DIRECTION_LIST.indexOf(direction) - 1
@@ -33,6 +40,9 @@ object Direction
       }
     }
 
+  /**
+    * Convert a string to a Direction
+    */
     def parse(string: String): Direction =
     {
       string.toLowerCase match

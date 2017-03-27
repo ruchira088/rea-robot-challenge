@@ -12,6 +12,9 @@ case object Place
 {
   val PREFIX = "Place"
 
+  /**
+    * Convert a string to a Place
+    */
   def parse(string: String): Place =
   {
     val lowerCasedString = string.trim.toLowerCase
@@ -30,6 +33,11 @@ case object Place
 
 object Instruction
 {
+  val NOT_ON_TABLE_TOP = "Toy Robot NOT on table-top."
+
+  /**
+    * Perform an Instruction
+    */
   def perform(instruction: Instruction, position: Option[Position]): InstructionResult =
   {
     def moveToValidPosition(currentPosition: Position, nextPosition: Position): Position =
@@ -62,13 +70,16 @@ object Instruction
             None
           }
         case Report() => {
-          InstructionResult(None, Some("Toy Robot NOT on table-top."))
+          InstructionResult(None, Some(NOT_ON_TABLE_TOP))
         }
         case _ => None
       }
     }
   }
 
+  /**
+    * Convert a string to an Instruction
+    */
   def parse(string: String): Instruction =
   {
     string.toLowerCase match

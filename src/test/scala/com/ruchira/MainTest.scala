@@ -43,7 +43,17 @@ class MainTest extends FunSpec
           Report(),
           Move(),
           Report()
-        )), (Some(Position(1, 4, East)), List("0,1,NORTH", "0,2,NORTH", "0,4,NORTH", "0,4,EAST", "1,4,EAST")))
+        )), (Some(Position(1, 4, East)), List("0,1,NORTH", "0,2,NORTH", "0,4,NORTH", "0,4,EAST", "1,4,EAST"))),
+        TestData((None, List(
+          Report(),
+          Place(Position(1, 2, East)),
+          Move(),
+          Move(),
+          Left(),
+          Place(Position(5, 5, East)),
+          Move(),
+          Report()
+        )), (Some(Position(3, 3, North)), List(Instruction.NOT_ON_TABLE_TOP, "3,3,NORTH")))
       )
 
       TestRunner.runTests[(Option[Position], List[Instruction]), (Option[Position], List[String])](testValues, input =>

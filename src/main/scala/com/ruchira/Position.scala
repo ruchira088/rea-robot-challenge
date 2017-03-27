@@ -7,9 +7,13 @@ case class Position(x: Int, y: Int, direction: Direction)
 
 object Position
 {
+  /** Dimensions of the table-top */
   val WIDTH = 5
   val HEIGHT = 5
 
+  /**
+    * Move forward from the passed-in Position
+    */
   def move(position: Position): Position =
   {
     val Position(x, y, direction) = position
@@ -23,6 +27,9 @@ object Position
     }
   }
 
+  /**
+    * Turn left from the passed-in Position
+    */
   def turnLeft(position: Position): Position =
   {
     val Position(x, y, direction) = position
@@ -30,6 +37,9 @@ object Position
     Position(x, y, Direction.turnLeft(direction))
   }
 
+  /**
+    * Turn right from the passed-in Position
+    */
   def turnRight(position: Position): Position =
   {
     val Position(x, y, direction) = position
@@ -37,6 +47,9 @@ object Position
     Position(x, y, Direction.turnRight(direction))
   }
 
+  /**
+    * Checks if the Position is a valid position
+    */
   def isValidPosition(position: Position, width: Int = WIDTH, height: Int = HEIGHT): Boolean =
   {
     def inRange(value: Int, max: Int): Boolean = 0 <= value && value < max
@@ -46,6 +59,9 @@ object Position
     inRange(x, width) && inRange(y, height)
   }
 
+  /**
+    * Converts a string to a Position
+    */
   def parse(string: String): Position =
   {
     val List(x, y, direction) = string.trim.split(",").toList.map(_.trim)
